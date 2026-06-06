@@ -1,0 +1,33 @@
+{
+  "version": "1.0",
+  "timestamp": 1775748240011,
+  "projectRoot": "d:\\java-project\\yunpicture-backend",
+  "entries": [
+    {
+      "path": "target\\classes\\com\\web\\yunpicturebackend\\YunpictureBackendApplication.class",
+      "mtime": 1775747689113.8848,
+      "size": 1051,
+      "mapperScan": {
+        "basePackages": [
+          "com.web.yunpicturebackend"
+        ],
+        "sourceFile": "d:\\java-project\\yunpicture-backend\\target\\classes\\com\\web\\yunpicturebackend\\YunpictureBackendApplication.class"
+      }
+    },
+    {
+      "path": "target\\classes\\com\\web\\yunpicturebackend\\manager\\auth\\model\\SpaceUserAuthConfig.class",
+      "mtime": 1775747967023.7075,
+      "size": 3234
+    },
+    {
+      "path": "target\\classes\\com\\web\\yunpicturebackend\\config\\CosClientConfig.class",
+      "mtime": 1775747968642.0796,
+      "size": 4717
+    },
+    {
+      "path": "target\\classes\\com\\web\\yunpicturebackend\\manager\\websocket\\WebSocketConfig.class",
+      "mtime": 1775747970545.5535,
+      "size": 1963
+    }
+  ]
+}

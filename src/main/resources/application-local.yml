@@ -1,0 +1,25 @@
+spring:
+  autoconfigure:
+    exclude:
+      - org.apache.shardingsphere.spring.boot.ShardingSphereAutoConfiguration
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3307/yun-picture-db?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Shanghai&characterEncoding=utf8
+    username: test
+    password: 123456
+  session:
+    store-type: none
+  data:
+    redis:
+      repositories:
+        enabled: false
+
+service:
+  servlet:
+    context-path: ""
+
+langchain4j:
+  deepseek:
+    api-key: ${OPENAI_API_KEY:your-api-key}
+    base-url: https://api.deepseek.com
+    model-name: deepseek-chat

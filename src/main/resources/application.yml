@@ -1,0 +1,106 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: yunpicture-backend
+#  datasource:
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    url: jdbc:mysql://localhost:3306/yunpicture
+#    username: root
+#    password: 12345
+  redis:
+    database: 0
+    host: 127.0.0.1
+    port: 6379
+    timeout: 5000
+  # Session 配置
+  session:
+    store-type: redis
+    # session 30 天后过期
+    timeout: 2592000
+  # 开放更大的文件上传体积
+  servlet:
+    multipart:
+      max-file-size: 10MB
+  # 空间图片分表
+  shardingsphere:
+    database-name: yunpicture
+    datasource:
+      names: yunpicture
+      yunpicture:
+        type: com.zaxxer.hikari.HikariDataSource
+        database-type: MySQL
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        url: jdbc:mysql://localhost:3307/yun-picture-db?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Shanghai&characterEncoding=utf8
+        username: test
+        password: 123456
+    rules:
+      sharding:
+        tables:
+          picture:
+            actual-data-nodes: yunpicture.picture # 动态分表
+            table-strategy:
+              standard:
+                sharding-column: spaceId
+                sharding-algorithm-name: picture_sharding_algorithm  # 使用自定义分片算法
+        sharding-algorithms:
+          picture_sharding_algorithm:
+            type: CLASS_BASED
+            props:
+              strategy: standard
+              algorithmClassName: com.web.yunpicturebackend.manager.sharding.PictureShardingAlgorithm
+    props:
+      sql-show: true
+mybatis-plus:
+  configuration:
+    # MyBatis 配置,关闭或者开启驼峰命名映射
+    map-underscore-to-camel-case: false
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  global-config:
+    enable-sql-runner: true
+    db-config:
+      # 全局配置,设置默认的表前缀
+      logic-delete-field: isDelete # 逻辑删除字段名
+      logic-delete-value: 1 # 逻辑已删除值
+      logic-not-delete-value: 0 # 逻辑未删除值
+#接口文档的配置
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+knife4j:
+  enable: true
+  openapi:
+    title: Knife4j官方文档
+    version: v1.0
+    group:
+      default:
+        group-name: 默认分组
+        api-rule: package
+        api-rule-resources:
+          - com.web.yunpicturebackend.Controller
+cos:  
+    client:    
+      host: https://yunpicture-1381513310.cos.ap-guangzhou.myqcloud.com  
+      secretId: ${TENCENT_COS_SECRET_ID:your-secret-id}
+      secretKey: ${TENCENT_COS_SECRET_KEY:your-secret-key}
+      region: ap-guangzhou
+      bucket: yunpicture-1381513310
+aliYunAi:
+  apiKey: ${ALIYUN_AI_API_KEY:your-api-key}
+milvus:
+  host: 127.0.0.1
+  port: 19530
+  collection-name: picture_vector
+  primary-field-name: id
+  vector-field-name: embedding
+  dimension: 768
+  index-name: picture_vector_idx
+  index-type: IVF_FLAT
+  metric-type: COSINE
+  nlist: 1024
+  nprobe: 20
+  auto-create-collection: false
+  auto-load-collection: false
+siglip:
+  host: localhost
+  port: 8000
